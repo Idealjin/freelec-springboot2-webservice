@@ -1,19 +1,20 @@
 package com.sangjin.book.springboot.web;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
 import com.sangjin.book.springboot.domain.posts.Posts;
 import com.sangjin.book.springboot.domain.posts.PostsRepository;
 import com.sangjin.book.springboot.web.dto.PostsSaveRequestDto;
 import com.sangjin.book.springboot.web.dto.PostsUpdateRequestDto;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,7 +28,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostsApiControllerTest {
@@ -46,6 +46,7 @@ public class PostsApiControllerTest {
 
     private MockMvc mvc;
 
+    @Before
     public void setup() {
         mvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(springSecurity())
@@ -104,7 +105,6 @@ public class PostsApiControllerTest {
 
         String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
 
-        HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         //when
         mvc.perform(put(url)
